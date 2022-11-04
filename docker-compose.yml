@@ -18,6 +18,25 @@ services:
       - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_BUCKET}
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUXDB_TOKEN}
 
+  chronograf:
+    image: chronograf:latest
+    container_name: chronograf
+    environment:
+      - RESOURCES_PATH=/usr/share/chronograf/resources
+      - REPORTING_DISABLED=true
+      - INFLUXDB_ORG=${INFLUXDB_ORG}
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+      - INFLUXDB_URL=${INFLUXDB_URL}
+    volumes:
+      # Mount for chronograf resources
+      - ./chronograf.dashboard:/usr/share/chronograf/resources/chronograf.dashboard
+    ports:
+      - "8888:8888"
+    links:
+      - influxdb
+    depends_on:
+      - influxdb
+
   forza:
     build: ./forza_telemetry
     image: forza_telemetry:latest
