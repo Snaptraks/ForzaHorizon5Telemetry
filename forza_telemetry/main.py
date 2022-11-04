@@ -14,7 +14,7 @@ logger = logging.getLogger("forza_telemetry")
 
 
 CLIENT = InfluxDBClient(
-    url="http://influxdb:8086",
+    url=os.environ.get("INFLUXDB_URL"),
     token=os.environ.get("INFLUXDB_TOKEN"),
     org=os.environ.get("INFLUXDB_ORG"),
 )
