@@ -19,7 +19,8 @@ services:
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUXDB_TOKEN}
 
   chronograf:
-    image: chronograf:latest
+    build: ./chronograf
+    image: chronograf-fh5
     container_name: chronograf
     environment:
       - RESOURCES_PATH=/usr/share/chronograf/resources
@@ -29,7 +30,7 @@ services:
       - INFLUXDB_URL=${INFLUXDB_URL}
     volumes:
       # Mount for chronograf resources
-      - ./chronograf:/usr/share/chronograf/resources/
+      - ./chronograf/resources:/usr/share/chronograf/resources
     ports:
       - "8888:8888"
     links:

@@ -2,7 +2,7 @@ import argparse
 import logging
 import os
 import socket
-from time import perf_counter
+from time import perf_counter, sleep
 
 from influxdb_client import InfluxDBClient
 from influxdb_client.client.write_api import SYNCHRONOUS
@@ -70,6 +70,7 @@ def main():
     )
 
     args = parser.parse_args()
+    sleep(5)
     receive_stream(args)
 
 
